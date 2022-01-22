@@ -7,10 +7,12 @@ export default class CampaignNew extends Component {
   state = {
     minimumContribution: '',
     errorMessage: '',
+    loading: false,
   };
 
   onSubmit = async (event) => {
     event.preventDefault();
+    this.setState({...this.state,errorMessage:'',loading:true})
     try {
       const accounts = await web3.eth.getAccounts();
       await factory.methods.createCampaign(this.state.minimumContribution).send({
@@ -20,6 +22,7 @@ export default class CampaignNew extends Component {
       console.log(err);
       this.setState({ errorMessage: err.message });
     }
+    this.setState({...this.state,loading:false})
   };
   render() {
     return (
@@ -37,7 +40,7 @@ export default class CampaignNew extends Component {
             />
           </Form.Field>
           <Message error header="Oops" content={this.state.errorMessage} />
-          <Button primary>Create</Button>
+          <Button loading={this.state.loading } primary>Create</Button>
         </Form>
       </Layout>
     );
