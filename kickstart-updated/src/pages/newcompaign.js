@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-export default () => { 
-    return (
-        <h1>This is new campaign page!!!</h1>
-    )
+export default function Campaign() {
+  return (
+    <div>Campaign Page</div>
+  )
 }
